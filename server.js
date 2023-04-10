@@ -20,7 +20,10 @@ const ref = database.ref("/");
 ref.on("value", (snapshot) => {
   
   const data = snapshot.val();
-  console.log(data);
+  const document =  {
+    Score : data.Score,
+    Time : data.Time,
+  }
   const resetData = {
     Score:0,
     Status: false,
@@ -29,7 +32,7 @@ ref.on("value", (snapshot) => {
   // Convert the data to an array of objects
   // Save the data to Firestore
     if (data.Status === true) {
-      firestore.collection("TestData").add(data);
+      firestore.collection("TestData").add(document);
       ref.update(resetData)
     }
 });
