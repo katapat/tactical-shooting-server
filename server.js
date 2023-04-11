@@ -15,23 +15,24 @@ const database = admin.database();
 
 // Get a reference to the Firestore
 const firestore = admin.firestore();
-
-const ref = database.ref("/");
+const username = 'username';
+const ref = database.ref("/" + username);
 ref.on("value", (snapshot) => {
   
   const data = snapshot.val();
+  console.log(data);
   const document =  {
-    Score : data.Score,
-    Time : data.Time,
+    Score : data.score,
+    Time : data.time,
   }
   const resetData = {
-    Score:0,
-    Status: false,
-    Time: 3.00,
+    score:0,
+    status: false,
+    time: 3.00,
   };
   // Convert the data to an array of objects
   // Save the data to Firestore
-    if (data.Status === true) {
+    if (data.status === true) {
       firestore.collection("TestData").add(document);
       ref.update(resetData)
     }
